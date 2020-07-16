@@ -24,9 +24,6 @@ def rec_message(message):
 	str1 = message.text
 	str1 = str1[:0] + str1[3:]
 	filePath = str(message.from_user.id) + ".txt"
-	#summ = sum(1 for line in open(filePath,'r'))
-	#print(summ)
-	#summ = summ + 1
 	file = open(filePath, 'a')
 	file.write('- ' + str1 + '\n')
 	file.close
@@ -57,15 +54,15 @@ def cl_message(message):
 @bot.message_handler(commands = ['sh'])
 def show_message(message):
 	filePath = str(message.from_user.id) + ".txt"
+	file = open(filePath, 'a')
+	file.close()
 	file = open(filePath, 'r')
-	#bot.send_message(message.chat.id, 'Ваши дела: ')
 	if(file.read()):
 		file.seek(0)
 		bot.send_message(message.chat.id, 'Ваши дела: ')
 		bot.send_message(message.chat.id, file.read())
 	else:
 		bot.send_message(message.chat.id, 'У вас нет дел')
-	#bot.send_message(message.chat.id, file.read())
 	file.seek(0)
 	file.close
 
@@ -74,7 +71,6 @@ def show_message(message):
 def file_message(message):
 	filePath = str(message.from_user.id) + ".txt"
 	file = open(filePath, 'rb')
-	#bot.send_document(message.chat.id, file)
 	if(file.read()):
 		file.seek(0)
 		bot.send_document(message.chat.id, file)
